@@ -1,5 +1,6 @@
-package dev.danvega;
+package okta.certification.fastrack;
 
+import okta.certification.fastrack.controller.MessageController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +21,7 @@ class MessageControllerTest {
     void helloReturnsExpectedResult() throws Exception {
         String expected = "Full Stack Java with Spring Boot and VueJS!";
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/messages/hello"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 

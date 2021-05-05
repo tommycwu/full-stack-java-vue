@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld />
+  <GetMessage />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GetMessage from './components/GetMessage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GetMessage: GetMessage
   }
 }
 </script>

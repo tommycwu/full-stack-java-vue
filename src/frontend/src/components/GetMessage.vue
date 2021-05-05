@@ -4,17 +4,17 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'GetMessage',
   data() {
     return {
       msg: ''
     }
   },
   mounted() {
-    fetch("/api/messages/hello")
+    fetch("/api/v1/sei")
       .then((response) => response.text())
       .then((data) => {
-          this.msg = data;
+        this.msg = data;
       });
   }
 }
