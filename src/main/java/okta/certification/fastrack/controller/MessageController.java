@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class MessageController {
 
-    @Value("#{ @environment['database.url'] }")
+    @Value("#{ @environment['datasource.url'] }")
     private String JDBC_URL;
     @Value("#{ @environment['datasource.username'] }")
     private String USERNAME;
@@ -32,6 +32,7 @@ public class MessageController {
     private Connection connectDb() throws Exception {
         Connection conn = null;
         try {
+            Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
         } catch (SQLException ex) {
             throw new Exception(ex.getMessage());
