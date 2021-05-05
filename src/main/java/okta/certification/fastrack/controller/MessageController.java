@@ -27,7 +27,7 @@ public class MessageController {
     private String PASSWORD;
     @Value("#{ @environment['api.url'] }")
     private String API_URL;
-    private static String CSS_STYLE = "<style>a{background-color:#4267B3;color:#fff;padding:.5em .5em;}body{font-family:sans-serif;}</style> ";
+    private static String CSS_STYLE = "<style>a{background-color:#4267B3;color:#fff;padding:.5em .5em;}body{font-family:sans-serif;line-height: 1.5;}</style> ";
 
     private Connection connectDb() throws Exception {
         Connection conn = null;
