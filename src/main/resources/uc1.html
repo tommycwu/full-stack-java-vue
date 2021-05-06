@@ -1,0 +1,68 @@
+<p>Duration: 10 - 15 minutes</p>
+<table class="fixed">
+    <col width="100px" />
+    <col width="100px" />
+    <col width="200px" />
+    <col width="200px" />
+        <tr style="line-height: 35px; height: 35px;" align="left">
+            <th bgcolor= "#f0f0f0"><strong>First Name</strong></th>
+            <th bgcolor= "#f0f0f0"><strong>Last Name</strong></th>
+            <th bgcolor= "#f0f0f0"><strong>Username/Email</strong></th>
+            <th bgcolor= "#f0f0f0"><strong>Secondary Email</strong></th>
+        </tr>
+        <tr style="line-height: 35px; height: 35px;">
+            <td>Mike</td>
+            <td>Barnes</td>
+            <td>mike.barnes@oktaice.com</td>
+            <td>Your personal or corp email</td>
+        </tr>
+        <tr style="line-height: 35px; height: 35px;">
+            <td bgcolor= "#f0f0f0">Sanjay</td>
+            <td bgcolor= "#f0f0f0">Patel</td>
+            <td bgcolor= "#f0f0f0">sanjay.patel@oktaice.com</td>
+            <td bgcolor= "#f0f0f0">Your personal or corp email</td>
+        </tr>
+</table>
+<p> 
+    1. Log in to your assigned Org1, Okta Preview org, using the credentials provided, and create the <b>Sanjay</b> and <b>Mike accounts</b> using the table above for required attribute definition.
+</p>
+<p>
+    2. Once the accounts are created, ensure both users can log in using <b>Tra!nme4321</b> as the password. <b>NOTE:</b> When you log in with both accounts, you can define any password reset question/answer combination and security image to finalize the accounts.
+</p>
+<p>
+    3. Grant <b>Sanjay</b> help desk admin access, where he can perform Tier 1 operations to assist interns with managing their Okta accounts, such as password resets.</p>
+</p>
+    4. Edit <b>Mike's</b> Okta Profile and update the following attributes. <b>NOTE:</b> If an attribute does <b>NOT</b> exist in a user's Okta profile, create the Okta attribute that best matches the type of data being populated in the field.<br /><br />
+    <b>Title:</b> Sales Intern <br />
+    <b>Primary phone number:</b> 925-321-1000 <br />
+    <b>Phone extension:</b> 117 <br />
+    <b>Street address:</b> 123 Main Street <br />
+    <b>City:</b> Oakland <br />
+    <b>State:</b> CA <br />
+    <b>Zip code:</b> 89089 <br />
+    <b>Department:</b> Interns <br />
+</p>
+<p>
+    5. Edit <b>Sanjay's</b> Okta Profile and update the following attributes: <br /><br />
+    <b>Title:</b> Help Desk Agent <br />
+    <b>Primary phone number:</b> 800-588-1656 <br />
+    <b>Phone extension:</b> 999 <br />
+    <b>Street address:</b> 100 First Street <br />
+    <b>City:</b> San Francisco <br />
+    <b>State:</b> CA <br />
+    <b>Zip code:</b> 94105 <br />
+    <b>Department:</b> IT
+</p>
+<p> 6. Create an Okta group based on the following: <br /><br />
+<b>Name:</b> Interns Group 
+<br />
+<b>Description:</b> All interns</p>
+<p> 7. Create an Okta group based on the following: <br /><br />
+<b>Name:</b> Admins Group 
+<br />
+<b>Description:</b> All admins</p>
+<p>
+    8. Using the <b>Department</b> attribute of <b>Interns,</b> define logic in Okta to filter users with this attribute defined into the <b>Interns</b> group. Verify <b>Mike</b> is added to the Interns group using this definition.
+    <b>IMPORTANT:</b> Mike should <b>NOT</b> be manually added to the group.
+</p>
+<p> 9. Add all the Okta admins, including Sanjay, to the Admins group.</p>
