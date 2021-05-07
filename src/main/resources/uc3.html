@@ -19,12 +19,8 @@
     <br />
     The following flows expect that neither Mike nor Sanjay are enrolled in any MFA factors:<br />
     <br />
-    <b>Mike</b> will log in to Okta with his credentials. He will be prompted to enroll into MFA. He will be forced to set up a Security Question but will have the option to set up Okta Verify. Mike will enroll in the Security Question and
-    define <b>Okta</b> as the answer to the question selected. Mike will <b>NOT</b> be forced to enroll into Okta Verify, because this factor was set up as optional. Mike will <b>NOT</b> configure Okta Verify as the optional factor. After
-    the successful login, Mike will test Salesforce access. When he clicks on the Salesforce icon via the Okta Dashboard, there will be <b>no</b> prompt for MFA. When Mike logs out of Okta and Salesforce and logs back in to Okta, he will
-    <b>NOT</b> be in the Corporate Office (Network Zone), since your testing device does <b>NOT</b> have an IP of 100.100.100.0 and he will be prompted to satisfy an MFA challenge to sign in to Okta. Mike will answer the MFA challenge by
-    entering <b>Okta</b> as the answer to the presented Security Question he enrolled into earlier. After the successful login, Mike will re-test Salesforce access. When he clicks on the Salesforce icon via the Okta Dashboard, there will be
-    <b>no</b> prompt for MFA. Mike will log out of Okta and Salesforce.<br />
+    <b>Mike</b> will log in to Okta with his credentials. He will be prompted to enroll into MFA. He will be forced to set up a Security Question but will have the option to set up Okta Verify. Mike will enroll in the Security Question and define <b>Okta</b> as the answer to the question selected. Mike will NOT be forced to enroll into Okta Verify, because this factor was set up as optional. Mike will <b>NOT</b> configure Okta Verify as the optional factor. After the successful login, Mike will test access to the spoke org. When he clicks on the org2org icon via the Okta Dashboard, there will be no prompt for MFA. When Mike logs out of Okta and logs back in, he will <b>NOT</b> be in the Corporate Office (Network Zone), since your testing device does <b>NOT</b> have an IP of 100.100.100.0 and he will be prompted to satisfy an MFA challenge to sign in to Okta. Mike will answer the MFA challenge by entering <b>Okta</b> as the answer to the presented Security Question he enrolled into earlier. After the successful login, Mike will re-test spoke org access. When he clicks on the org2org icon via the Okta Dashboard, there will be no prompt for MFA. Mike will log out of Okta.
+    <br />
     <br />
     <b>Sanjay's Flow</b><br />
     <br />

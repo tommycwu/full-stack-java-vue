@@ -40,41 +40,6 @@ public class MessageController {
         return conn;
     }
 
-    public static String LoadPage(String classpath) {
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(classpath);
-        try (Reader reader = new InputStreamReader(resource.getInputStream())) {
-            return FileCopyUtils.copyToString(reader);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private int UpdateTable(int id, String[] value) throws Exception {
-        String SQL = "UPDATE public.ft_pro_exam "
-                + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, examinee_info= ?, ext_token= ?, response_id= ?, date_used= now() "
-                + "WHERE table_id = ?";
-
-        int affectedRows = 0;
-
-        try (Connection conn = this.ConnectDb();
-             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-
-            pstmt.setString(1, value[0]);
-            pstmt.setString(2, value[1]);
-            pstmt.setString(3, value[2]);
-            pstmt.setString(4, value[3]);
-            pstmt.setString(5, value[4]);
-            pstmt.setString(6, value[5]);
-            pstmt.setInt(7, id);
-            affectedRows = pstmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            throw new Exception(ex.getMessage());
-        }
-        return affectedRows;
-    }
-
     private Map<String,String> AssignOrg() throws Exception {
         String SQL = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
         var tableId = "";
@@ -107,6 +72,41 @@ public class MessageController {
             put("org2_apikey", finalApiKey);
         }};
         return retMap;
+    }
+
+    private int UpdateTable(int id, String[] value) throws Exception {
+        String SQL = "UPDATE public.ft_pro_exam "
+                + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, examinee_info= ?, ext_token= ?, response_id= ?, date_used= now() "
+                + "WHERE table_id = ?";
+
+        int affectedRows = 0;
+
+        try (Connection conn = this.ConnectDb();
+             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            pstmt.setString(1, value[0]);
+            pstmt.setString(2, value[1]);
+            pstmt.setString(3, value[2]);
+            pstmt.setString(4, value[3]);
+            pstmt.setString(5, value[4]);
+            pstmt.setString(6, value[5]);
+            pstmt.setInt(7, id);
+            affectedRows = pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return affectedRows;
+    }
+
+    public static String LoadPage(String classpath) {
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
+        Resource resource = resourceLoader.getResource(classpath);
+        try (Reader reader = new InputStreamReader(resource.getInputStream())) {
+            return FileCopyUtils.copyToString(reader);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     @PostMapping({"/sei"})
