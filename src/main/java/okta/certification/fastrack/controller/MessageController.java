@@ -1,5 +1,6 @@
 package okta.certification.fastrack.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -109,6 +110,64 @@ public class MessageController {
         }
     }
 
+    private String BuildNav(int selectedTab, String encP0, String encP1, String encP2, String encP3) {
+        var navBar = "";
+        if (selectedTab == 1) {
+            navBar = "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Org Info</a> ";
+        }
+        else {
+            navBar = "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Org Info</a> ";
+        }
+        if (selectedTab == 2) {
+            navBar += "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Case Study</a> ";
+        }
+        else {
+            navBar += "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Case Study</a> ";
+        }
+        if (selectedTab == 3) {
+            navBar += "<a href=\"" + API_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Use Case 1</a> ";
+        }
+        else {
+            navBar += "<a href=\"" + API_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Use Case 1</a> ";
+        }
+        if (selectedTab == 4) {
+            navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Use Case 2</a> ";
+        }
+        else
+        {
+            navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Use Case 2</a> ";
+        }
+        if (selectedTab == 5)
+        {
+            navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Use Case 3</a> ";
+        }
+        else
+        {
+            navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Use Case 3</a> ";
+        }
+        if (selectedTab == 6)
+        {
+            navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Use Case 4</a>";
+        }
+        else
+        {
+            navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Use Case 4</a>";
+        }
+        return navBar;
+    }
+
     @PostMapping({"/sei"})
     @ResponseStatus(HttpStatus.OK)
     private String postSei(@RequestHeader Map<String, String> headers) throws Exception {
@@ -148,147 +207,135 @@ public class MessageController {
         String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], examineeInfo[0], externalToken[0], responseId[0]};
         UpdateTable(tempInt, seiInfo);
 
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
+        String jsonStr = examineeInfo[0];
         try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            String s = jsonObject.get("First Name").toString();
+            encP0 = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(resMap.get("org1_url"), StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(resMap.get("org2_url"), StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(resMap.get("org2_apikey"), StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception ex) {
+            String test = ex.getMessage();
             //do nothing
         }
-        return API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
+        return API_URL + "/info?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
     }
 
     @GetMapping("/info")
-    public String getInfo(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getInfo(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 4</a>";
+        String navBar = BuildNav(1, encP0, encP1, encP2, encP3);
         String rawStr = LoadPage("classpath:info.html");
-        String param1Str = rawStr.replace("{p1}",p1);
+        String param0Str = rawStr.replace("{p0}",p0);
+        String param1Str = param0Str.replace("{p1}",p1);
         String param2Str = param1Str.replace("{p2}",p2);
         String param3Str = param2Str.replace("{p3}",p3);
         return CSS_STYLE + navBar + "<p><p>" + param3Str;
     }
 
     @GetMapping("/casestudy")
-    public String getCasestudy(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getCasestudy(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 4</a>";
+        String navBar = BuildNav(2, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:casestudy.html");
     }
 
     @GetMapping("/uc1")
-    public String getUc1(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getUc1(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var cssText = "<style>a{background-color:#4267B3;color:#fff;padding:.5em .5em;}body{font-family:sans-serif;}</style> ";
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 4</a>";
+        String navBar = BuildNav(3, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:uc1.html");
     }
 
     @GetMapping("/uc2")
-    public String getUc2(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getUc2(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 4</a>";
+        String navBar = BuildNav(4, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:uc2.html");
     }
 
     @GetMapping("/uc3")
-    public String getUc3(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getUc3(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 4</a>";
+        String navBar = BuildNav(5, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:uc3.html");
     }
 
     @GetMapping("/uc4")
-    public String getUc4(@RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+    public String getUc4(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
         try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        var navBar = "<a href=\"" + API_URL + "/info?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Org Info</a> ";
-        navBar += "<a href=\"" + API_URL + "/casestudy?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Case Study</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc1?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 1</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc2?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 2</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc3?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\">Use Case 3</a> ";
-        navBar += "<a href=\"" + API_URL + "/uc4?p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 + "\" style=\"color: #555; background: #C1C1C1;\">Use Case 4</a>";
+        String navBar = BuildNav(6, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:uc4.html");
     }
 
