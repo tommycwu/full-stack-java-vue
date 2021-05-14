@@ -140,28 +140,23 @@ public class MessageController {
             navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 2</a> ";
         }
-        else
-        {
+        else {
             navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 2</a> ";
         }
-        if (selectedTab == 5)
-        {
+        if (selectedTab == 5) {
             navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 3</a> ";
         }
-        else
-        {
+        else {
             navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 3</a> ";
         }
-        if (selectedTab == 6)
-        {
+        if (selectedTab == 6) {
             navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 4</a>";
         }
-        else
-        {
+        else {
             navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 4</a>";
         }
@@ -220,7 +215,6 @@ public class MessageController {
             encP2 = URLEncoder.encode(resMap.get("org2_url"), StandardCharsets.UTF_8.toString());
             encP3 = URLEncoder.encode(resMap.get("org2_apikey"), StandardCharsets.UTF_8.toString());
         } catch (Exception ex) {
-            String test = ex.getMessage();
             //do nothing
         }
         return API_URL + "/info?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
