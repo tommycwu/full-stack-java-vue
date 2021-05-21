@@ -41,26 +41,44 @@ public class MessageController {
         return conn;
     }
 
-    private Map<String,String> AssignOrg() throws Exception {
-        String SQL = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
+    private Map<String,String> AssignOrg(String sqlStr) throws Exception {
+        String SQL = sqlStr;
         var tableId = "";
         var org1Url = "";
         var org2Url = "";
         var apiKey = "";
-        try (Connection conn = this.ConnectDb();
-             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-            ResultSet rs = pstmt.executeQuery();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try
+        {
+            conn = this.ConnectDb();
+            pstmt = conn.prepareStatement(SQL);
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 tableId = rs.getString("table_id");
                 org1Url = rs.getString("org1_url");
                 org2Url = rs.getString("org2_url");
                 apiKey = rs.getString("org2_apikey");
             }
-            if (tableId == "") {
-                throw new Exception("No orgs available.");
-            }
-        } catch(SQLException e){
+        } catch(Exception e){
             throw new Exception(e.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            }
+            catch (Exception ex) {
+                //do nothing
+            }
         }
         String finalTableId = tableId;
         String finalHubUrl = org1Url;
@@ -195,13 +213,17 @@ public class MessageController {
                     break;
             }
         });
-
-        Map<String, String> resMap = AssignOrg();
+        String passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE delivery_id = '" + deliveryId[0] + "'";
+        Map<String, String> resMap = AssignOrg(passStr);
         String foundId = resMap.get("table_id");
-        int tempInt = Integer.parseInt(foundId);
-        String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], examineeInfo[0], externalToken[0], responseId[0]};
-        UpdateTable(tempInt, seiInfo);
-
+        if (foundId == ""){
+            passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
+            resMap = AssignOrg(passStr);
+            foundId = resMap.get("table_id");
+            int tempInt = Integer.parseInt(foundId);
+            String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], examineeInfo[0], externalToken[0], responseId[0]};
+            UpdateTable(tempInt, seiInfo);
+        }
         String encP0 = "";
         String encP1 = "";
         String encP2 = "";
