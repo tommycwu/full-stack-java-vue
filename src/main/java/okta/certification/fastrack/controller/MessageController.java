@@ -298,7 +298,12 @@ public class MessageController {
             //do nothing
         }
         String navBar = BuildNav(3, encP0, encP1, encP2, encP3);
-        return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:uc1.html");
+        String[] arrOfStr1 = encP1.split("-");
+        String[] arrOfStr2 = arrOfStr1[2].split("[.]");
+        String s1 = arrOfStr2[0];
+        String rawStr = LoadPage("classpath:uc1.html");
+        String param1Str = rawStr.replace("{s1}",s1);
+        return CSS_STYLE + navBar + "<p><p>" + param1Str;
     }
 
     @GetMapping("/uc2")

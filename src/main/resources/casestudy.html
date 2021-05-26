@@ -1,6 +1,53 @@
 <p>
-    This exam contains four use cases. Complete each use case by performing the tasks that are listed for that use case. Perform the tasks in the Okta orgs that have been provided to you, org1 will be the Idp org2 will serve as the SP. We recommend that you complete the use cases and tasks in order as some later tasks are dependent on the successful completion of previous ones.
+    Case Study for Org2Org Fast Track
 </p>
 <p>
-    Be careful entering information.  The exam system will <b>NOT</b> allow you to copy and paste information from this document or the Case Study. You will have 90 minutes to complete the exam. Please monitor your time using the timer located in the upper left corner of the screen.
+    ### Case Study  
+    Sally Field is interviewing with Okta Ice to take on the role of lead Okta Admin. She will be provided an Okta Admin account, which has unrestricted access to two Okta Preview orgs. The first Okta org will serve as a hub org, while the second Okta org will serve as a spoke org., to show her future management team that she can successfully support the onboarding and offboarding of interns who will be joining Okta Ice in the next quarter.  
+    
+    This Case Study provides a high-level overview of the tasks Sally will be asked to perform on the Hands-on Configuration Exam. The actual exam is provided as Use Cases 1-4 in the tabs below. The Okta Org credentials you will need for the exam are also provided below in the tab labeled “Credentials.” Specific details for configuration and testing are provided in use cases. Sally must complete the exam within 90 minutes after which her access to the two Okta orgs will be revoked. Sally’s performance on the tasks in the exam will then be evaluated and scored.  
+    
+    During the exam, you will play the role of Sally. You are charged with performing the tasks in the use cases that have been assigned to Sally. If you perform enough of the tasks correctly to achieve the minimum score required to pass the exam, Sally will be hired for the role, and you, in return, will be granted the Okta Certified Professional Certification.      
+</p>
+<p>
+    #### Overview of Tasks Sally Needs to Perform
+<p>
+1. Sally will be given an account to log in to Okta as a Super Admin.
+</p>
+<p>
+    2. She will create an account for Sanjay Patel, who will assist her with managing help desk requests in the okta org as an admin. Sanjay will be given an Okta admin role to perform help desk duties, such as password resets.
+</p>
+<p>
+    3. Mike Barnes will be Sally’s test Intern user. Sally will need to create and activate his account. After his account is created, Sally will define some key attributes for his account and Sanjay’s.
+</p>
+<p>
+    4. To ensure all Interns are assigned the correct apps upon hire, Interns need to be dynamically assigned to an Interns group in Okta. Sally will create an Interns group and define logic in Okta, in which the department attribute for Interns will be used to dynamically define membership.
+</p>
+<p>
+    5. All members of the Interns group in Okta will be granted access to the second or spoke Okta org , which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, where the user will access the spoke org directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in the spoke org to force an SP-initiated SSO flow. Sally will have access to the spoke org through a service account and credentials to log in.
+</p>
+<p>
+    6. To provision assigned users into the spoke org, Okta Lifecycle Management will be utilized in which a direct API integration will be set up between the two Okta orgs. Sally will utilize the provided spoke org service account for the API integration. Setting up the API integration is critical to ensure new users are pushed into the spoke org when they are assigned to the application in Okta. This will also allow for key attributes in the spoke org to be updated based on changes in Okta. Lastly, users will be deactivated in the spoke org when the respective users in the hub org are offboarded (deactivated).
+</p>
+<p>
+    7. From a security standpoint, MFA will be configured. Okta Verify and a Security Question will be leveraged as the MFA Factors.
+</p>
+<p>
+    8. MFA Enrollment will require Okta Verify to be set up as an optional factor, while a Security Question will be required. All Interns must enroll into MFA, the first time they sign into Okta, regardless of location. All Okta Admins, including Sanjay, will be excluded from being challenged for MFA, so the interview panel can log in to the Okta org to validate Sally’s configurations.
+</p>
+<p>
+    9. Each time an Intern tries to log in to Okta from outside the Corporate Office, they must provide a 2nd factor of verification. They are not prompted for MFA when they click on the spoke org from the Okta Dashboard.
+</p>
+<p>
+    10. To simulate the end of the internship, Mike will be offboarded in the hub org. Before that occurs, Sally needs to ensure that the spoke orghas the most up-to-date attribute data.
+</p>
+<p>
+    11. To test the offboarding flow/deactivation process, Mike will be manually deactivated in the hub org, which will trigger the Okta Lifecycle event in the spoke org to automatically deactivate his account.
+</p>
+
+</p>
+    #### NOTES:
+    - The Hands-on Configuration Exam will be performed on your computer using any supported web browser. A virtual machine/server will not be needed.  
+    
+    - **ONLY** use the two Okta orgs you are assigned to take this exam.
 </p>
