@@ -94,7 +94,7 @@ public class MessageController {
     }
 
     private int UpdateTable(int id, String[] value) throws Exception {
-        String SQL = "UPDATE public.ft_pro_exam "
+        String SQL = "UPDATE public.hands_on_pro_exam "
                 + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, examinee_info= ?, ext_token= ?, response_id= ?, date_used= now() "
                 + "WHERE table_id = ?";
 
@@ -131,20 +131,20 @@ public class MessageController {
     private String BuildNav(int selectedTab, String encP0, String encP1, String encP2, String encP3) {
         var navBar = "";
         if (selectedTab == 1) {
-            navBar = "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
-                    "\" style=\"color: #555; background: #C1C1C1;\">Org Info</a> ";
-        }
-        else {
-            navBar = "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
-                    "\">Org Info</a> ";
-        }
-        if (selectedTab == 2) {
-            navBar += "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar = "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Case Study</a> ";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar = "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Case Study</a> ";
+        }
+        if (selectedTab == 2) {
+            navBar += "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\" style=\"color: #555; background: #C1C1C1;\">Org Info</a> ";
+        }
+        else {
+            navBar += "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+                    "\">Org Info</a> ";
         }
         if (selectedTab == 3) {
             navBar += "<a href=\"" + API_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
@@ -213,11 +213,11 @@ public class MessageController {
                     break;
             }
         });
-        String passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE delivery_id = '" + deliveryId[0] + "'";
+        String passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE delivery_id = '" + deliveryId[0] + "'";
         Map<String, String> resMap = AssignOrg(passStr);
         String foundId = resMap.get("table_id");
         if (foundId == ""){
-            passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.ft_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
+            passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
             resMap = AssignOrg(passStr);
             foundId = resMap.get("table_id");
             int tempInt = Integer.parseInt(foundId);
@@ -242,29 +242,6 @@ public class MessageController {
         return API_URL + "/info?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
     }
 
-    @GetMapping("/info")
-    public String getInfo(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
-        String encP0 = "";
-        String encP1 = "";
-        String encP2 = "";
-        String encP3 = "";
-        try {
-            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
-            encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
-            encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
-            encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            //do nothing
-        }
-        String navBar = BuildNav(1, encP0, encP1, encP2, encP3);
-        String rawStr = LoadPage("classpath:info.html");
-        String param0Str = rawStr.replace("{p0}",p0);
-        String param1Str = param0Str.replace("{p1}",p1);
-        String param2Str = param1Str.replace("{p2}",p2);
-        String param3Str = param2Str.replace("{p3}",p3);
-        return CSS_STYLE + navBar + "<p><p>" + param3Str;
-    }
-
     @GetMapping("/casestudy")
     public String getCasestudy(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
         String encP0 = "";
@@ -279,8 +256,31 @@ public class MessageController {
         } catch (UnsupportedEncodingException e) {
             //do nothing
         }
-        String navBar = BuildNav(2, encP0, encP1, encP2, encP3);
+        String navBar = BuildNav(1, encP0, encP1, encP2, encP3);
         return CSS_STYLE + navBar + "<p><p>" + LoadPage("classpath:casestudy.html");
+    }
+
+    @GetMapping("/info")
+    public String getInfo(@RequestParam String p0, @RequestParam String p1, @RequestParam String p2, @RequestParam String p3) {
+        String encP0 = "";
+        String encP1 = "";
+        String encP2 = "";
+        String encP3 = "";
+        try {
+            encP0 = URLEncoder.encode(p0, StandardCharsets.UTF_8.toString());
+            encP1 = URLEncoder.encode(p1, StandardCharsets.UTF_8.toString());
+            encP2 = URLEncoder.encode(p2, StandardCharsets.UTF_8.toString());
+            encP3 = URLEncoder.encode(p3, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            //do nothing
+        }
+        String navBar = BuildNav(2, encP0, encP1, encP2, encP3);
+        String rawStr = LoadPage("classpath:info.html");
+        String param0Str = rawStr.replace("{p0}",p0);
+        String param1Str = param0Str.replace("{p1}",p1);
+        String param2Str = param1Str.replace("{p2}",p2);
+        String param3Str = param2Str.replace("{p3}",p3);
+        return CSS_STYLE + navBar + "<p><p>" + param3Str;
     }
 
     @GetMapping("/uc1")
