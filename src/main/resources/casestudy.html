@@ -1,7 +1,4 @@
 <p>
-    Case Study for Okta Hands On Professional Certification Exam
-</p>
-<p>
     <b>Case Study</b>
 
 </p>
@@ -14,7 +11,7 @@ Sally Field is interviewing with Okta Ice to take on the role of lead Okta Admin
     1. Sally will be given an account to log in to Okta as a Super Admin.
 </p>
 <p>
-    2. She will create an account for Sanjay Patel, who will assist her with managing help desk requests in the org1 as an admin. Sanjay will be given an Okta admin role to perform help desk duties, such as password resets.
+    2. She will create an account for Sanjay Patel, who will assist her with managing help desk requests in org1 as an admin. Sanjay will be given an Okta admin role to perform help desk duties, such as password resets.
 </p>
 <p>
     3. Mike Barnes will be Sally’s test Intern user. Sally will need to create and activate his account. After his account is created, Sally will define some key attributes for his account and Sanjay’s.
@@ -23,10 +20,10 @@ Sally Field is interviewing with Okta Ice to take on the role of lead Okta Admin
     4. To ensure all Interns are assigned the correct apps upon hire, Interns need to be dynamically assigned to an Interns group in Okta. Sally will create an Interns group and define logic in Okta, in which the department attribute for Interns will be used to dynamically define membership.
 </p>
 <p>
-    5. All members of the Interns group in Okta will be granted access to the second or org2, which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, in which the user will access the org2 org directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in org2 to force an SP-initiated SSO flow. Sally has access to the org2 through a service account and credentials to log in.
+    5. All members of the Interns group in Okta will be granted access to the second or org2, which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, in which the user will access org2 org directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in org2 to force an SP-initiated SSO flow. Sally has access to org2 through a service account and credentials to log in.
 </p>
 <p>
-    6. To provision assigned users into org2, Okta Lifecycle Management will be utilized in which a direct API integration will be set up between the two Okta orgs. Sally will utilize the provided org2 service account for the API integration. Setting up the API integration is critical to ensure new users are pushed into org2 when they are assigned to the application in Okta. This will also allow for key attributes in org2 to be updated based on changes in Okta. Lastly, users will be deactivated in org2 when the respective users in the org1  are offboarded (deactivated).
+    6. To provision assigned users into org2, Okta Lifecycle Management will be utilized in which a direct API integration will be set up between the two Okta orgs. Sally will utilize the provided org2 service account for the API integration. Setting up the API integration is critical to ensure new users are pushed into org2 when they are assigned to the application in Okta. This will also allow for key attributes in org2 to be updated based on changes in Okta. Lastly, users will be deactivated in org2 when the respective users in org1  are offboarded (deactivated).
 </p>
 <p>
     7. From a security standpoint, MFA will be configured. Okta Verify and a Security Question will be leveraged as the MFA Factors.

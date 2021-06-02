@@ -239,7 +239,7 @@ public class MessageController {
         } catch (Exception ex) {
             //do nothing
         }
-        return API_URL + "/info?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
+        return API_URL + "/casestudy?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
     }
 
     @GetMapping("/casestudy")
