@@ -83,7 +83,7 @@
     function displayFinal() {
         if (i === 9)
         {
-            document.getElementById("text").innerText = "Scoring Complete, click 'submit & finish' on the lower right hand corner.";
+            document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT' on the lower right hand corner to view your score.";
             document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
             i = 10;
         }
@@ -92,28 +92,26 @@
     function sendPost()
     {
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8080/api/v1/send", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send('{"delivery_id":"test12"}');
+        xhttp.open('POST', '{async_url}', true);
+        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}"}));
 
-        setInterval(displayOne, 5000);
-        setInterval(displayTwo, 10000);
-        setInterval(displayThree, 15000);
-        setInterval(displayFour, 20000);
-        setInterval(displayFive, 25000);
-        setInterval(displaySix, 30000);
-        setInterval(displaySeven, 35000);
-        setInterval(displayEight, 40000);
-        setInterval(displayNine, 45000);
-        setInterval(displayFinal, 50000);
+        setInterval(displayOne, 2000);
+        setInterval(displayTwo, 3000);
+        setInterval(displayThree, 4000);
+        setInterval(displayFour, 5000);
+        setInterval(displayFive, 6000);
+        setInterval(displaySix, 7000);
+        setInterval(displaySeven, 8000);
+        setInterval(displayEight, 9000);
+        setInterval(displayNine, 10000);
+        setInterval(displayFinal, 11000);
     }
-
-
 </script>
 
 <body onload="sendPost()">
 <br><br><br><center><label id="text">"Please wait while your exam is being scored..."</label></center><br><br><br>
-<center><img width="100" height="100" id="img" src="https://freedomplazaarizona.com/wp-content/uploads/2018/04/Loading.gif"/></center>
+<center><img width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/></center>
 </body>
 </body>
 </html>

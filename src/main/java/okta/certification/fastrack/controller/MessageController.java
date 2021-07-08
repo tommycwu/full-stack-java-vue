@@ -26,8 +26,8 @@ public class MessageController {
     private String USERNAME;
     @Value("#{ @environment['datasource.password'] }")
     private String PASSWORD;
-    @Value("#{ @environment['api.url'] }")
-    private String API_URL;
+    @Value("#{ @environment['base.url'] }")
+    private String BASE_URL;
     private static String CSS_STYLE = "<style>a{background-color:#4267B3;color:#fff;padding:.5em .5em;}body{font-family:sans-serif;line-height: 1.5;}</style>";
 
     private Connection ConnectDb() throws Exception {
@@ -131,51 +131,51 @@ public class MessageController {
     private String BuildNav(int selectedTab, String encP0, String encP1, String encP2, String encP3) {
         var navBar = "";
         if (selectedTab == 1) {
-            navBar = "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar = "<a href=\"" + BASE_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Case Study</a> ";
         }
         else {
-            navBar = "<a href=\"" + API_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar = "<a href=\"" + BASE_URL + "/casestudy?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Case Study</a> ";
         }
         if (selectedTab == 2) {
-            navBar += "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Org Info</a> ";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/info?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Org Info</a> ";
         }
         if (selectedTab == 3) {
-            navBar += "<a href=\"" + API_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 1</a> ";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc1?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 1</a> ";
         }
         if (selectedTab == 4) {
-            navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 2</a> ";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc2?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 2</a> ";
         }
         if (selectedTab == 5) {
-            navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 3</a> ";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc3?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 3</a> ";
         }
         if (selectedTab == 6) {
-            navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\" style=\"color: #555; background: #C1C1C1;\">Use Case 4</a>";
         }
         else {
-            navBar += "<a href=\"" + API_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
+            navBar += "<a href=\"" + BASE_URL + "/uc4?p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3 +
                     "\">Use Case 4</a>";
         }
         return navBar;
@@ -239,7 +239,7 @@ public class MessageController {
         } catch (Exception ex) {
             //do nothing
         }
-        return API_URL + "/casestudy?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
+        return BASE_URL + "/casestudy?" + "&p0=" + encP0 + "&p1=" + encP1 + "&p2=" + encP2 + "&p3=" + encP3;
     }
 
     @GetMapping("/casestudy")

@@ -5,7 +5,6 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +23,11 @@ import java.util.Map;
 public class ResultController {
     @Value("#{ @environment['webhook.url'] }")
     private String WEBHOOK_URL;
+    @Value("#{ @environment['base.url'] }")
+    private String BASE_URL;
+    @Value("#{ @environment['async.url'] }")
+    private String ASYNC_URL;
 
-
-    @Value("#{ @environment['api.url'] }")
-    private String API_URL;
 
     public static String LoadPage(String classpath) {
         ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -59,18 +59,19 @@ public class ResultController {
                     break;
             }
         });
-        return API_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0];
+        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0];
+    }
+
+    @GetMapping("/result")
+    public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId ) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+        String rawStr = LoadPage("classpath:result.html");
+        String replaceStr = rawStr.replace("{async_url}", BASE_URL + "/send");
+        String returnStr = replaceStr.replace("{d_Id}", deliveryId);
+        return returnStr;
     }
 
     @PostMapping({"/send"})
-    @ResponseStatus(HttpStatus.OK)
-    private String sendResult(@RequestHeader Map<String, String> headers) throws Exception {
-        String rawStr = LoadPage("classpath:uc1.html");
-        return rawStr;
-    }
-
-    @Async
-    public void sendScore(String deliveryId) throws NoSuchAlgorithmException, KeyManagementException {
+    public void sendScore(@RequestBody String deliveryId) throws NoSuchAlgorithmException, KeyManagementException {
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public X509Certificate[] getAcceptedIssuers() { return null; }
             public void checkClientTrusted(X509Certificate[] certs, String authType) { }
@@ -98,14 +99,11 @@ public class ResultController {
             con.setRequestProperty("Accept", "application/json");
 
             con.setDoOutput(true);
-            String jsonInputString = "{\"delivery_id\": \"" + deliveryId + "\"}";
 
             try(OutputStream os = con.getOutputStream()){
-                byte[] input = jsonInputString.getBytes("utf-8");
+                byte[] input = deliveryId.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
-
-            url.openStream().close();
 
             int code = con.getResponseCode();
             String result = "";
@@ -122,10 +120,4 @@ public class ResultController {
         }
     }
 
-    @GetMapping("/result")
-    public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId ) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-        //return  result + "<br><br>" + "deliveryId: " + deliveryId + "<br><br>" + "externalToken: " + externalToken + "<br><br>" + "responseId: " + responseId;
-        //postScore(deliveryId);
-        return LoadPage("classpath:result.html");
-    }
 }
