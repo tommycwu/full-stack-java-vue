@@ -11,7 +11,7 @@
     function displayOne() {
         if (i === 0)
         {
-            document.getElementById("text").innerText = "Scoring.. 10% complete";
+            document.getElementById("text").innerText = "Scoring";
             i = 1;
         }
     }
@@ -19,7 +19,7 @@
     function displayTwo() {
         if (i === 1)
         {
-            document.getElementById("text").innerText = "Scoring.. 20% complete";
+            document.getElementById("text").innerText = "Scoring.";
             i = 2;
         }
     }
@@ -27,7 +27,7 @@
     function displayThree() {
         if (i === 2)
         {
-            document.getElementById("text").innerText = "Scoring.. 30% complete";
+            document.getElementById("text").innerText = "Scoring...";
             i = 3;
         }
     }
@@ -35,7 +35,7 @@
     function displayFour() {
         if (i === 3)
         {
-            document.getElementById("text").innerText = "Scoring.. 40% complete";
+            document.getElementById("text").innerText = "Scoring....";
             i = 4;
         }
     }
@@ -43,7 +43,7 @@
     function displayFive() {
         if (i === 4)
         {
-            document.getElementById("text").innerText = "Scoring.. 50% complete";
+            document.getElementById("text").innerText = "Scoring";
             i = 5;
         }
     }
@@ -51,7 +51,7 @@
     function displaySix() {
         if (i === 5)
         {
-            document.getElementById("text").innerText = "Scoring.. 60% complete";
+            document.getElementById("text").innerText = "Scoring.";
             i = 6;
         }
     }
@@ -59,7 +59,7 @@
     function displaySeven() {
         if (i === 6)
         {
-            document.getElementById("text").innerText = "Scoring.. 70% complete";
+            document.getElementById("text").innerText = "Scoring..";
             i = 7;
         }
     }
@@ -67,7 +67,7 @@
     function displayEight() {
         if (i === 7)
         {
-            document.getElementById("text").innerText = "Scoring.. 80% complete";
+            document.getElementById("text").innerText = "Scoring...";
             i = 8;
         }
     }
@@ -75,7 +75,7 @@
     function displayNine() {
         if (i === 8)
         {
-            document.getElementById("text").innerText = "Scoring.. 90% complete";
+            document.getElementById("text").innerText = "Scoring....";
             i = 9;
         }
     }
@@ -89,27 +89,49 @@
         }
     }
 
-    function sendPost()
+    function checkScore() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '{status_url}', true);
+        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
+        xhttp.onload = () => {
+            var responseText = xhttp.responseText;
+            console.log(responseText);
+            if (responseText === 'done')
+            {
+                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT' on the lower right hand corner to view your score.";
+                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
+            }
+        }
+    }
+
+    function sendScore()
     {
         var xhttp = new XMLHttpRequest();
         xhttp.open('POST', '{async_url}', true);
         xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
         xhttp.send(JSON.stringify({"delivery_id":"{d_Id}"}));
+        for (let i = 1; i < 21; i++) {
+            var j = i * 3000;
+            setInterval(checkScore, j);
+        }
 
-        setInterval(displayOne, 2000);
-        setInterval(displayTwo, 3000);
-        setInterval(displayThree, 4000);
-        setInterval(displayFour, 5000);
-        setInterval(displayFive, 6000);
-        setInterval(displaySix, 7000);
-        setInterval(displaySeven, 8000);
-        setInterval(displayEight, 9000);
-        setInterval(displayNine, 10000);
-        setInterval(displayFinal, 11000);
+
+        //setInterval(displayOne, 2000);
+        //setInterval(displayTwo, 3000);
+        //setInterval(displayThree, 4000);
+        //setInterval(displayFour, 5000);
+        //setInterval(displayFive, 6000);
+        //setInterval(displaySix, 7000);
+        //setInterval(displaySeven, 8000);
+        //setInterval(displayEight, 9000);
+        //setInterval(displayNine, 10000);
+        //setInterval(displayFinal, 11000);
+
     }
 </script>
 
-<body onload="sendPost()">
+<body onload="sendScore()">
 <br><br><br><center><label id="text">"Please wait while your exam is being scored..."</label></center><br><br><br>
 <center><img width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/></center>
 </body>

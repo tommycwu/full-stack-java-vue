@@ -1,5 +1,6 @@
 package okta.certification.fastrack.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -25,9 +26,10 @@ public class ResultController {
     private String WEBHOOK_URL;
     @Value("#{ @environment['base.url'] }")
     private String BASE_URL;
-    @Value("#{ @environment['async.url'] }")
-    private String ASYNC_URL;
-
+    @Value("#{ @environment['sei.url'] }")
+    private String SEI_URL;
+    @Value("#{ @environment['auth.header'] }")
+    private String AUTH_HEADER;
 
     public static String LoadPage(String classpath) {
         ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -43,6 +45,7 @@ public class ResultController {
     @ResponseStatus(HttpStatus.OK)
     private String postScore(@RequestHeader Map<String, String> headers) throws Exception {
         final String[] deliveryId = {""};
+        final String[] examId = {""};
         final String[] externalToken = {""};
         final String[] responseId = {""};
 
@@ -57,17 +60,78 @@ public class ResultController {
                 case "x-sei-response-id" :
                     responseId[0] = value;
                     break;
+                case "x-sei-exam-id" :
+                    examId[0] = value;
+                    break;
             }
         });
-        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0];
+        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0]+ "&examId=" + examId[0];
     }
 
     @GetMapping("/result")
-    public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId ) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+    public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId , @RequestParam String examId)
+            throws IOException, NoSuchAlgorithmException, KeyManagementException {
         String rawStr = LoadPage("classpath:result.html");
-        String replaceStr = rawStr.replace("{async_url}", BASE_URL + "/send");
-        String returnStr = replaceStr.replace("{d_Id}", deliveryId);
-        return returnStr;
+        String asyncStr = rawStr.replace("{async_url}", BASE_URL + "/send");
+        String examStr = asyncStr.replace("{e_Id}", examId);
+        String deliveryStr = examStr.replace("{d_Id}", deliveryId);
+        String statusStr = deliveryStr.replace("{status_url}", BASE_URL + "/status");
+        return statusStr;
+    }
+
+    @PostMapping("/status")
+    public String getStatus(@RequestBody Map<String, String> bodyData) {
+        try {
+            final String[] deliveryId = {""};
+            final String[] examId = {""};
+
+            bodyData.forEach((key, value) -> {
+                switch (key) {
+                    case "delivery_id":
+                        deliveryId[0] = value;
+                        break;
+                    case "exam_id":
+                        examId[0] = value;
+                        break;
+                }
+            });
+            String urlStr = SEI_URL;
+            String examStr = urlStr.replace("{exam_id}", examId[0]);
+            String deliveryStr = examStr.replace("{delivery_id}", deliveryId[0]);
+            URL url = new URL(deliveryStr);
+            String basicAuth = "Basic " + AUTH_HEADER;
+            HttpURLConnection con =  (HttpURLConnection) url.openConnection();
+            con.setDoOutput(true);
+            con.setRequestProperty ("Authorization", basicAuth);
+            con.setRequestMethod("GET");
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String jsonStr = "";
+                String resultStr = "";
+                try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))){
+                    StringBuilder response = new StringBuilder();
+                    String responseLine = null;
+                    while ((responseLine = br.readLine()) != null) {
+                        response.append(responseLine.trim());
+                    }
+                    jsonStr = response.toString();
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    resultStr = jsonObject.get("score").toString();
+                }
+                if (resultStr.trim().equals("0.0"))
+                {
+                    return "not scored";
+                }
+                else
+                {
+                    return "done";
+                }
+            } else {
+                return con.getResponseMessage();
+            }
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
     }
 
     @PostMapping({"/send"})

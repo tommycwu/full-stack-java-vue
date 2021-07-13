@@ -1,7 +1,11 @@
 base:
-  url: https://5725268a3ff5.ngrok.io/api/v1
+  url: https://0b4418dd3406.ngrok.io/api/v1
 webhook:
   url: https://localhost:44360/sei/webhook
+sei:
+  url: https://scorpion.caveon.com/api/exams/{exam_id}/deliveries/{delivery_id}
+auth:
+  header: M2RmMjRhNTItMGUzYy00NjllLWIyZjAtMTliY2ExNGZmNGUzOmRjNmVkYmJjOWJjNDU2NGFhNjg2ZGRhNDFlMGEwMDE4
 datasource:
   url: jdbc:postgresql://ec2-18-204-101-137.compute-1.amazonaws.com:5432/d2dskh6gqc29mq
   username: qescamtxhtiqqq
