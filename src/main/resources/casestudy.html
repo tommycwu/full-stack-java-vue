@@ -2,24 +2,24 @@
     <b>Case Study</b>
 </p>
 <p>
-    You are interviewing with Okta Ice to take on the role of Lead Okta Admin. You will be provided an Okta Admin account, which has unrestricted access to two Okta Preview orgs, to show your future management team that you can successfully support the onboarding and offboarding of interns who will be joining Okta Ice in the next quarter. The first Okta org will serve as a Identity Provider (org1), while the second Okta org will serve as a Service Provider (org2). This Case Study provides a high-level overview of the tasks you will be asked to perform on the Hands-on Configuration Exam. The actual tasks are provided as Use Cases 1 through 4, which can be accessed through the other tabs on this page. The Okta Org credentials you will need for the exam are provided in the tab labeled “Org Info.” Specific details for configuration and testing are provided in the use cases. You must complete the exam within 120 minutes after which your access to the two Okta orgs will be revoked. Your performance on the tasks in the exam will then be evaluated and scored. If you perform enough of the tasks correctly to achieve the minimum score required to pass this exam, you will be hired for the role, and you, in return, will be granted the Okta Certified Professional Certification.
+    You are interviewing with Okta Ice to take on the role of Lead Okta Admin. You will be given an Okta Admin account, which has unrestricted access to two Okta orgs, to show your future management team that you can successfully support the onboarding and offboarding of interns who will be joining Okta Ice in the next quarter. The first Okta org will serve as an identity provider (org1), and the second Okta org will serve as a service provider (org2). This case study provides a high-level overview of the tasks you will be asked to perform on the hands-on configuration exam. The actual tasks are provided as Use Cases 1 through 4, which you can access through the other tabs on this page. The Okta org credentials you need for the exam are on the tab labeled “Org Info.” Specific details for configuration and testing are in the use cases. You must complete the exam within 120 minutes, after which your access to the two Okta orgs will be revoked. Your performance on the tasks in the exam will then be evaluated and scored. If you perform enough of the tasks correctly to achieve the minimum score required to pass this exam, you will be granted the Okta Certified Professional Certification.
 </p>
 <p>
     <b>Overview of Tasks You Need to Perform</b>
 <p>
-    1. You have been given an account to log in to Okta as a Super Admin. Your user name is admin@oktacertified.com.
+    1. You have an account to log in to Okta as a super admin. Your user name is admin@oktacertified.com. Use that account to create an account for Meera Patel, who will help you manage help desk requests in org1 as an admin. Meera will have an Okta admin role to perform help desk duties, such as password resets.
 </p>
 <p>
-    2. Use that account to create an account for Sanjay Patel, who will assist you with managing help desk requests in org1 as an admin. Sanjay will be given an Okta admin role to perform help desk duties, such as password resets.
+    2. Mike Barnes will be a test intern user. You will need to create and activate his account. After you create his account, you will define some key attributes for his account as well as Meera’s.
 </p>
 <p>
-    3. Mike Barnes will be a test Intern user. You will need to create and activate his account. After his account is created, you will define some key attributes for his account as well as Sanjay’s.
+    3. To ensure all interns are assigned the correct apps upon hire, you need to dynamically assign interns to an Interns group in Okta. You will need to create an Interns group and define logic in Okta that will use the department attribute for interns to dynamically define membership.
 </p>
 <p>
-    4. To ensure all Interns are assigned the correct apps upon hire, Interns need to be dynamically assigned to an Interns group in Okta. You will need to create an Interns group and define logic in Okta, in which the department attribute for Interns will be used to dynamically define membership.
+    4. All members of the Interns group in Okta will be granted access to the second org (org2), which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, in which users access org2 directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in org2 to force an SP-initiated SSO flow. You have access to org2 through a service account and the necessary credentials to log in as needed.
 </p>
 <p>
-    5. All members of the Interns group in Okta will be granted access to the second org (org2), which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, in which the user will access org2 directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in org2 to force an SP-initiated SSO flow. You have access to org2 through a service account and the necessary credentials to log in as needed.
+    5. Use Okta Lifecycle Management to provision assigned users into org2. Use the provided org2 service account to set up direct API integration between the two Okta orgs. Setting up the API integration is critical to ensure new users are pushed into org2 when you assign them to the application in org1. This allows for key attributes in org2 to be updated based on changes in Okta. Lastly, users are deactivated in org2 when those users are offboarded (deactivated) in org1.
 </p>
 <p>
     6. To provision assigned users into org2, Okta Lifecycle Management will be utilized in which a direct API integration will be set up between the two Okta orgs. You will utilize the provided org2 service account for the API integration. Setting up the API integration is critical to ensure new users are pushed into org2 when they are assigned to the application in org1. This will also allow for key attributes in org2 to be updated based on changes in Okta. Lastly, users will be deactivated in org2 when the respective users in org1 are offboarded (deactivated).
@@ -28,22 +28,19 @@
     7. From a security standpoint, MFA will be configured. Okta Verify and a Security Question will be leveraged as the MFA Factors.
 </p>
 <p>
-    8. MFA Enrollment will require Okta Verify to be set up as an optional factor, while a Security Question will be required. All Interns must enroll into MFA, the first time they sign into Okta, regardless of location. All Okta Admins, including Sanjay, will be excluded from being challenged for MFA.
+    8. Each time an intern tries to log in to Okta from outside the corporate office, that intern must be challenged for a second factor. Interns are not prompted for MFA, however, when they access org2 through the Okta Dashboard.
 </p>
 <p>
-    9. Each time an Intern tries to log in to Okta from outside the Corporate Office, they must be challenged for a 2nd factor. They are not prompted for MFA when they click on org2 from the Okta Dashboard.
+    9. To simulate the end of the internship, Mike will be offboarded in org1. Before that occurs, you need to ensure that org2 has the most current attribute data.
 </p>
 <p>
-    10. To simulate the end of the internship, Mike will be offboarded in org1. Before that occurs, you need to ensure that org2 has the most up-to-date attribute data.
-</p>
-<p>
-    11. To test the offboarding flow/deactivation process, Mike will be manually deactivated in org1, which will trigger the Okta Lifecycle event in org2 to automatically deactivate his account.
+    10. To test the offboarding flow/deactivation process, you will manually deactivate Mike in org1, which will trigger the Okta Lifecycle event in org2 to automatically deactivate his account.
 </p>
 
 </p>
 <p>
-    <b>NOTES:</b>
+    <b>Notes:</b>
 </p>
 <p>
-    A virtual machine is not required to take this exam, and as such, you are prohibited from using one. Please use a standard browser, ideally Google Chrome, to log into the Okta orgs you have been assigned so that you can complete these tasks.
+    You are not allowed to use a virtual machine to take this exam. Use a standard browser to log in to the Okta orgs you have been assigned so that you can complete these tasks. Google Chrome is the preferred browser for this exam.
 </p>
