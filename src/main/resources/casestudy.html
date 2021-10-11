@@ -22,10 +22,10 @@
     5. Use Okta Lifecycle Management to provision assigned users into org2. Use the provided org2 service account to set up direct API integration between the two Okta orgs. Setting up the API integration is critical to ensure new users are pushed into org2 when you assign them to the application in org1. This allows for key attributes in org2 to be updated based on changes in Okta. Lastly, users are deactivated in org2 when those users are offboarded (deactivated) in org1.
 </p>
 <p>
-    6. To provision assigned users into org2, Okta Lifecycle Management will be utilized in which a direct API integration will be set up between the two Okta orgs. You will utilize the provided org2 service account for the API integration. Setting up the API integration is critical to ensure new users are pushed into org2 when they are assigned to the application in org1. This will also allow for key attributes in org2 to be updated based on changes in Okta. Lastly, users will be deactivated in org2 when the respective users in org1 are offboarded (deactivated).
+    6. You will configure MFA for security and use Okta Verify and a Security Question as the MFA factors.
 </p>
 <p>
-    7. From a security standpoint, MFA will be configured. Okta Verify and a Security Question will be leveraged as the MFA Factors.
+    7. For MFA enrollment you will configure Okta Verify as an optional factor and Security Question as a required factor. All interns must enroll in MFA the first time they sign in to Okta, regardless of location. No Okta admins, including Meera, will be challenged for MFA.
 </p>
 <p>
     8. Each time an intern tries to log in to Okta from outside the corporate office, that intern must be challenged for a second factor. Interns are not prompted for MFA, however, when they access org2 through the Okta Dashboard.
