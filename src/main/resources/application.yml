@@ -1,5 +1,5 @@
 base:
-  url: https://6ecde366838d.ngrok.io/api/v1
+  url: https://227e-136-52-65-147.ngrok.io/api/v1
 webhook:
   url: https://localhost:44360/sei/webhook
 sei:

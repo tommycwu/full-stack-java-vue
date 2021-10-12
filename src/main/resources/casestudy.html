@@ -19,7 +19,7 @@
     4. All members of the Interns group in Okta will be granted access to the second org (org2), which requires the setup of SAML federation in Okta and the service provider. At this time, only an IdP initiated flow is required for SSO, in which users access org2 directly from their Okta Dashboard. Okta Ice does not have any plans to set up a custom domain in org2 to force an SP-initiated SSO flow. You have access to org2 through a service account and the necessary credentials to log in as needed.
 </p>
 <p>
-    5. Use Okta Lifecycle Management to provision assigned users into org2. Use the provided org2 service account to set up direct API integration between the two Okta orgs. Setting up the API integration is critical to ensure new users are pushed into org2 when you assign them to the application in org1. This allows for key attributes in org2 to be updated based on changes in Okta. Lastly, users are deactivated in org2 when those users are offboarded (deactivated) in org1.
+    5. Use Okta Lifecycle Management to provision assigned users into org2. Use the provided org2 service account to set up direct API integration between the two Okta orgs. Setting up the API integration is critical to ensure new users are pushed into org2 when you assign them to the application in org1. This allows for key attributes in org2 to be updated based on changes in Okta. Lastly, users will be deactivated in org2 when those users are offboarded (deactivated) in org1.
 </p>
 <p>
     6. You will configure MFA for security and use Okta Verify and a Security Question as the MFA factors.
