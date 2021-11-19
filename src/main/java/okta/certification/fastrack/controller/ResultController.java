@@ -65,18 +65,24 @@ public class ResultController {
                     break;
             }
         });
-        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0]+ "&examId=" + examId[0];
+//        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0]+ "&examId=" + examId[0];
+        String redirUrl = BASE_URL + "/result?deliveryId=" + deliveryId[0];
+        System.out.println(redirUrl);
+        return redirUrl;
     }
 
     @GetMapping("/result")
-    public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId , @RequestParam String examId)
+    //public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId , @RequestParam String examId)
+    public String getResult(@RequestParam String deliveryId)
             throws IOException, NoSuchAlgorithmException, KeyManagementException {
         String rawStr = LoadPage("classpath:result.html");
         String asyncStr = rawStr.replace("{async_url}", BASE_URL + "/send");
-        String examStr = asyncStr.replace("{e_Id}", examId);
-        String deliveryStr = examStr.replace("{d_Id}", deliveryId);
-        String statusStr = deliveryStr.replace("{status_url}", BASE_URL + "/status");
-        return statusStr;
+        //String examStr = asyncStr.replace("{e_Id}", examId);
+        String deliveryStr = asyncStr.replace("{d_Id}", deliveryId);
+        //String statusStr = deliveryStr.replace("{status_url}", BASE_URL + "/status");
+        //String deliveryJson = "{\"delivery_id\":\"" + deliveryId +  "\"}";
+        //sendScore(deliveryJson);
+        return deliveryStr;
     }
 
     @PostMapping("/status")
@@ -96,8 +102,8 @@ public class ResultController {
                 }
             });
             String urlStr = SEI_URL;
-            String examStr = urlStr.replace("{exam_id}", examId[0]);
-            String deliveryStr = examStr.replace("{delivery_id}", deliveryId[0]);
+            String examStr = urlStr.replace("{response_id}", examId[0]);
+            String deliveryStr = examStr.replace("{external_token}", deliveryId[0]);
             URL url = new URL(deliveryStr);
             String basicAuth = "Basic " + AUTH_HEADER;
             HttpURLConnection con =  (HttpURLConnection) url.openConnection();

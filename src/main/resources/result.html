@@ -2,302 +2,150 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Result</title>
+    <style type="text/css">
+        label {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 24px;
+        }
+        center {
+            text-align: center;
+            justify-content: center;
+        }
+
+        done {
+            background-color: #009CDD;
+        }
+    </style>
 </head>
 
 <script type="text/javascript" language="javascript">
     var i = 0;
 
     function displayOne() {
-        console.log('displayOne - ' + Date.now());
-        if (i === 0)
-        {
-            document.getElementById("text").innerText = "Retrieving configurations.";
-            i = 1;
-        }
-    }
-
-    function displayTwo() {
         if (i === 1)
         {
-            console.log('displayTwo - ' + Date.now());
-            document.getElementById("text").innerText = "Retrieving configurations..";
+            console.log('displayOne - ' + Date.now());
+            document.getElementById("text").innerText = "Retrieving configurations.";
             i = 2;
         }
     }
 
-    function displayThree() {
+    function displayTwo() {
         if (i === 2)
         {
-            console.log('displayThree - ' + Date.now());
-            document.getElementById("text").innerText = "Retrieving configurations...";
+            console.log('displayTwo - ' + Date.now());
+            document.getElementById("text").innerText = "Retrieving configurations..";
             i = 3;
         }
     }
 
-    function displayFour() {
+    function displayThree() {
         if (i === 3)
         {
-            console.log('displayFour - ' + Date.now());
-            document.getElementById("text").innerText = "Compiling results.";
+            console.log('displayThree - ' + Date.now());
+            document.getElementById("text").innerText = "Retrieving configurations...";
             i = 4;
         }
     }
 
-    function displayFive() {
+    function displayFour() {
         if (i === 4)
         {
-            console.log('displayFive - ' + Date.now());
-            document.getElementById("text").innerText = "Compiling results..";
+            console.log('displayFour - ' + Date.now());
+            document.getElementById("text").innerText = "Compiling results.";
             i = 5;
         }
     }
 
-    function displaySix() {
+    function displayFive() {
         if (i === 5)
         {
-            document.getElementById("text").innerText = "";
+            console.log('displayFive - ' + Date.now());
+            document.getElementById("text").innerText = "Compiling results..";
             i = 6;
         }
     }
 
-    function displaySeven() {
+    function displaySix() {
         if (i === 6)
         {
-            document.getElementById("text").innerText = "";
+            console.log('displaySix - ' + Date.now());
+            document.getElementById("text").innerText = "Compiling results...";
             i = 7;
         }
     }
 
-    function displayEight() {
+    function displaySeven() {
         if (i === 7)
         {
-            document.getElementById("text").innerText = "";
+            console.log('displaySeven - ' + Date.now());
+            document.getElementById("text").innerText = "Grading.";
             i = 8;
         }
     }
 
-    function displayNine() {
+    function displayEight() {
         if (i === 8)
         {
-            document.getElementById("text").innerText = "";
+            console.log('displayEight - ' + Date.now());
+            document.getElementById("text").innerText = "Grading..";
             i = 9;
         }
     }
 
-    function displayTen() {
+    function displayNine() {
         if (i === 9)
         {
-            document.getElementById("text").innerText = "";
+            console.log('displayNine - ' + Date.now());
+            document.getElementById("text").innerText = "Grading...";
             i = 10;
+        }
+    }
+
+    function displayTen() {
+        if (i === 10)
+        {
+            console.log('displayTen - ' + Date.now());
+            document.getElementById("text").innerText = "Done! Click 'SAVE & SUBMIT EXAM' in the lower right corner to submit your exam for grading.";
+            document.getElementById("img").src = "https://i.imgur.com/rM5G8yw.png";
         }
     }
 
     function sendScore()
     {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        console.log('sendScore - ' + Date.now());
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{async_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}"}));
-    }
-
-    function checkScoreOne() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Compiling results.";
-            }
-        }
-    }
-
-    function checkScoreTwo() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Compiling results..";
-            }
-        }
-    }
-
-    function checkScoreThree() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Compiling results...";
-            }
-        }
-    }
-
-    function checkScoreFour() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Please be patient while we verify the score.";
-            }
-        }
-    }
-
-    function checkScoreFive() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Please be patient while we verify the score..";
-            }
-        }
-    }
-
-    function checkScoreSix() {
-        if (document.getElementById("img").src === "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png"){
-            return;
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Please be patient while we verify the score...";
-            }
-        }
-    }
-
-    function checkScoreDone() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '{status_url}', true);
-        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp.send(JSON.stringify({"delivery_id":"{d_Id}", "exam_id":"{e_Id}"}));
-        xhttp.onload = () => {
-            var responseText = xhttp.responseText;
-            console.log(responseText);
-            if (responseText === 'done')
-            {
-                document.getElementById("text").innerText = "Scoring Complete, click 'SAVE & SUBMIT EXAM' on the lower right hand corner to see if you passed.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
-            else
-            {
-                document.getElementById("text").innerText = "Scoring did not complete in a timely manner.  You score will be sent to you when it is done, click 'SAVE & SUBMIT EXAM' on the lower right hand corner but the result you see is not the final result.";
-                document.getElementById("img").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Done.png/600px-Done.png";
-            }
+        if (i === 0)
+        {
+            console.log('sendScore - ' + Date.now());
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('POST', '{async_url}', true);
+            xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhttp.send(JSON.stringify({"delivery_id":"{d_Id}"}));
+            i = 1;
         }
     }
 
     function runOnLoad()
     {
-        setInterval(displayOne, 5000);
-        setInterval(displayTwo, 10000);
-        setInterval(displayThree, 15000);
-        setInterval(displayFour, 20000);
-        setInterval(displayFive, 25000);
-        setInterval(sendScore, 30000);
-        setInterval(checkScoreOne, 35000);
-        setInterval(checkScoreTwo, 40000);
-        setInterval(checkScoreThree, 45000);
-        setInterval(checkScoreFour, 49000);
-        setInterval(checkScoreFive, 53000);
-        setInterval(checkScoreSix, 57000);
-        setInterval(checkScoreFour, 60000);
-        setInterval(checkScoreFive, 63000);
-        setInterval(checkScoreSix, 66000);
-        setInterval(checkScoreFour, 69000);
-        setInterval(checkScoreFive, 72000);
-        setInterval(checkScoreSix, 75000);
-        setInterval(checkScoreFour, 78000);
-        setInterval(checkScoreFive, 80000);
-        setInterval(checkScoreSix, 82000);
-        setInterval(checkScoreFour, 84000);
-        setInterval(checkScoreFive, 86000);
-        setInterval(checkScoreSix, 88000);
-        setInterval(checkScoreDone, 90000);
+        setInterval(sendScore, 1000);
+        setInterval(displayOne, 7000);
+        setInterval(displayTwo, 13000);
+        setInterval(displayThree, 19000);
+        setInterval(displayFour, 25000);
+        setInterval(displayFive, 31000);
+        setInterval(displaySix, 37000);
+        setInterval(displaySeven, 43000);
+        setInterval(displayEight, 49000);
+        setInterval(displayNine, 55000);
+        setInterval(displayTen, 61000);
     }
 
 </script>
 
 <body onload="runOnLoad()">
 <br><br><br><center><label id="text">Please wait while we score the exam.</label></center><br><br><br>
-<center><img width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/></center>
+<div class="done"><center><img width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/></center>
+</div>
 </body>
 </body>
 </html>
