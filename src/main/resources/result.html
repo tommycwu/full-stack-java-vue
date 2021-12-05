@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <title>Result</title>
     <style type="text/css">
-        label {
+        labelA {
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-size: 24px;
         }
+
+        labelB {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            color: #FF0000;
+        }
+
         center {
             text-align: center;
             justify-content: center;
@@ -108,7 +115,7 @@
         {
             console.log('displayTen - ' + Date.now());
             document.getElementById("text").innerText = "Done! Click 'SAVE & SUBMIT EXAM' in the lower right corner to submit your exam for grading.";
-            document.getElementById("img").src = "https://i.imgur.com/rM5G8yw.png";
+            document.getElementById("spin").src = "https://i.imgur.com/rM5G8yw.png";
         }
     }
 
@@ -127,25 +134,38 @@
 
     function runOnLoad()
     {
+        document.getElementById('btnRun').style.backgroundColor="#808080"
+        document.getElementById('btnRun').setAttribute("disabled","disabled");
+        document.getElementById("btnRun").disabled = true;
+        console.log('document.getElementById(btnRun).setAttribute(disabled)');
+        document.getElementById('spin').style.visiblity = 'inherit';
+        document.getElementById('spin').style.visibility= "visible";
+        console.log('document.getElementById(spin).style.visibility=visible');
+        document.getElementById("warning").innerText = "";
+        document.getElementById("text").innerText = "Beginning grading process...";
         setInterval(sendScore, 1000);
         setInterval(displayOne, 7000);
-        setInterval(displayTwo, 13000);
-        setInterval(displayThree, 19000);
-        setInterval(displayFour, 25000);
-        setInterval(displayFive, 31000);
-        setInterval(displaySix, 37000);
-        setInterval(displaySeven, 43000);
-        setInterval(displayEight, 49000);
-        setInterval(displayNine, 55000);
-        setInterval(displayTen, 61000);
+        setInterval(displayTwo, 14000);
+        setInterval(displayThree, 21000);
+        setInterval(displayFour, 28000);
+        setInterval(displayFive, 35000);
+        setInterval(displaySix, 42000);
+        setInterval(displaySeven, 49000);
+        setInterval(displayEight, 56000);
+        setInterval(displayNine, 63000);
+        setInterval(displayTen, 70000);
     }
 
 </script>
 
-<body onload="runOnLoad()">
-<br><br><br><center><label id="text">Please wait while we score the exam.</label></center><br><br><br>
-<div class="done"><center><img width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/></center>
-</div>
-</body>
+<body >
+    <br><br><br><center><labelB id="warning">If you have not completed the use cases and tasks listed on Page 1, please go back to Page 1 by clicking the button labeled 1 in the upper left concern of this page.</labelB></center><br><br><br>
+    <br><br><center><labelA id="text">If you are ready to submit your exam for grading, click the Submit for Grading button below.</labelA></center><br><br><br>
+    <center><button id="btnRun" style="color:#ffffff; background-color:#00297A; font-size:20px; border-radius:12px; padding: 12px 50px;"
+                    hover="background-color:#0000ff" onclick="runOnLoad()">Submit for Grading</button></center>
+    <br>
+    <br>
+    <div class="done"><center><img id="spin" width="128" height="128" id="img" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif" style="visibility: hidden" /></center>
+    </div>
 </body>
 </html>
