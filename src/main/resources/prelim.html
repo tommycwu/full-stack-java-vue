@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <style type="text/css">
+        center {
+            text-align: center;
+            justify-content: center;
+        }
+
+        done {
+            background-color: #009CDD;
+        }
+    </style>
+</head>
+
+<body >
+<table style="border-collapse: collapse">
+    <col width="600px" />
+    <col width="600px" />
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td><strong>Result:</strong></td>
+        <td><strong>{passed}</strong> ...you will receive your official result via email.</td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Name:</td>
+        <td>{firstName} {lastName}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Email:</td>
+        <td>{eMail}</td>
+    </tr>
+    <!--
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Completed At:</td>
+        <td>{modified_at}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Duration:</td>
+        <td>{duration}</td>
+    </tr>
+-->
+</table>
+<br>
+<table style="border-collapse: collapse;{hideShow}">
+    <col width="600px" />
+    <col width="600px" />
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td><strong>Breakdown</strong></td>
+        <td></td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Onboarding:</td>
+        <td>{uc1Percent}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Application Setup:</td>
+        <td>{uc2Percent}</td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Security Enforcement:</td>
+        <td>{uc3Percent}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>Attribute Mapping and Offboarding:</td>
+        <td>{uc4Percent}</td>
+    </tr>
+</table>
+</body>
+</html>

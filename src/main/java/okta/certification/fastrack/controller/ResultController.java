@@ -46,43 +46,31 @@ public class ResultController {
     private String postScore(@RequestHeader Map<String, String> headers) throws Exception {
         final String[] deliveryId = {""};
         final String[] examId = {""};
-        final String[] externalToken = {""};
-        final String[] responseId = {""};
 
         headers.forEach((key, value) -> {
             switch(key) {
                 case "x-sei-delivery-id" :
                     deliveryId[0] = value;
                     break;
-                case "x-sei-external-token" :
-                    externalToken[0] = value;
-                    break;
-                case "x-sei-response-id" :
-                    responseId[0] = value;
-                    break;
                 case "x-sei-exam-id" :
                     examId[0] = value;
                     break;
             }
         });
-//        return BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&externalToken=" + externalToken[0] + "&responseId=" + responseId[0]+ "&examId=" + examId[0];
-        String redirUrl = BASE_URL + "/result?deliveryId=" + deliveryId[0];
+        String redirUrl = BASE_URL + "/result?deliveryId=" + deliveryId[0] + "&examId=" + examId[0];
         System.out.println(redirUrl);
         return redirUrl;
     }
 
     @GetMapping("/result")
     //public String getResult(@RequestParam String deliveryId, @RequestParam String externalToken, @RequestParam String responseId , @RequestParam String examId)
-    public String getResult(@RequestParam String deliveryId)
+    public String getResult(@RequestParam String deliveryId, String examId)
             throws IOException, NoSuchAlgorithmException, KeyManagementException {
         String rawStr = LoadPage("classpath:result.html");
-        String asyncStr = rawStr.replace("{async_url}", BASE_URL + "/send");
-        //String examStr = asyncStr.replace("{e_Id}", examId);
+        String asyncStr = rawStr.replace("{async_url}", BASE_URL + "/get");
         String deliveryStr = asyncStr.replace("{d_Id}", deliveryId);
-        //String statusStr = deliveryStr.replace("{status_url}", BASE_URL + "/status");
-        //String deliveryJson = "{\"delivery_id\":\"" + deliveryId +  "\"}";
-        //sendScore(deliveryJson);
-        return deliveryStr;
+        String examStr = deliveryStr.replace("{e_Id}", examId);
+        return examStr;
     }
 
     @PostMapping("/status")
