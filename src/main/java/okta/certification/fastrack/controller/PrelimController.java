@@ -225,7 +225,7 @@ public class PrelimController {
         int uc2int = Integer.parseInt(uc2Percent.trim().replace("%", ""));
         int uc3int = Integer.parseInt(uc3Percent.trim().replace("%", ""));
         int uc4int = Integer.parseInt(uc4Percent.trim().replace("%", ""));
-        if (uc1int + uc2int + uc3int + uc4int < 9)
+        if (uc1int + uc2int + uc3int + uc4int < 15)
         {
             finalResult = "Additional grading needed ";
             hideShow = "display: none";
