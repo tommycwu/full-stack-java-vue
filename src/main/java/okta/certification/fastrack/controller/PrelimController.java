@@ -214,6 +214,10 @@ public class PrelimController {
 
         String caveonUrl = "https://scorpion.caveon.com/api/exams/" + examId + "/deliveries/" + deliveryId + "?include=breakdown_objects";
         Map<String, String> resMap = GetDomc(caveonUrl);
+        String iamPct = resMap.get("Identity and Access Management") + "%";
+        String lcmPct = resMap.get("User Lifecycle Management") + "%";
+        String secPct = resMap.get("Security") + "%";
+        String adminPct = resMap.get("Administration and Troubleshooting") + "%";
         String eMail = resMap.get("Email") + "";
         String firstName = resMap.get("First Name") + "";
         String lastName = resMap.get("Last Name") + "";
@@ -279,7 +283,11 @@ public class PrelimController {
         String durationStr = sHour + ":" + sMin + ":" + sSecLeft;
 
         String templateStr = LoadPage("classpath:prelim.html");
-        String htmlStr8 = templateStr.replace("{uc1Percent}", uc1Percent);
+        String htmlStr4 = templateStr.replace("{iamPct}", iamPct);
+        String htmlStr5 = htmlStr4.replace("{lcmPct}", lcmPct);
+        String htmlStr6 = htmlStr5.replace("{secPct}", secPct);
+        String htmlStr7 = htmlStr6.replace("{adminPct}", adminPct);
+        String htmlStr8 = htmlStr7.replace("{uc1Percent}", uc1Percent);
         String htmlStr9 = htmlStr8.replace("{uc2Percent}", uc2Percent);
         String htmlStr10 = htmlStr9.replace("{uc3Percent}", uc3Percent);
         String htmlStr11 = htmlStr10.replace("{uc4Percent}", uc4Percent);
@@ -319,6 +327,14 @@ public class PrelimController {
                     passedStr = jsonObject.get("passed").toString();
                     modifiedStr = jsonObject.get("modified_at").toString();
                     secondsStr = jsonObject.get("used_seconds").toString();
+                    arrayBreakdown = jsonObject.getJSONArray("breakdown_objects");
+                    String type = "", amount = "";
+                    for (int i = 0; i < arrayBreakdown.length(); i++) {
+                        Map<String,Object> list = arrayBreakdown.getJSONObject(i).toMap();
+                        type = list.get("area").toString();
+                        amount = list.get("percent").toString();
+                        returnMap.put(type, amount);
+                    }
                     examineeObj = jsonObject.getJSONObject("examinee");
                     infoObj = examineeObj.getJSONObject("info");
                     String Email = infoObj.get("Email").toString();
