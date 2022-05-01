@@ -216,7 +216,7 @@ public class MessageController {
         String passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE delivery_id = '" + deliveryId[0] + "'";
         Map<String, String> resMap = AssignOrg(passStr);
         String foundId = resMap.get("table_id");
-        if (foundId == ""){
+        if (foundId.equals("")){
             passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
             resMap = AssignOrg(passStr);
             foundId = resMap.get("table_id");

@@ -20,51 +20,75 @@
     <col width="600px" />
     <col width="600px" />
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td><strong>Result:</strong></td>
-        <td><strong>{passed}</strong> ...you will receive your official result via email.</td>
+        <td>First Name</td>
+        <td>{firstName}</td>
     </tr>
     <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Name:</td>
-        <td>{firstName} {lastName}</td>
+        <td>Last Name</td>
+        <td>{lastName}</td>
     </tr>
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Email:</td>
+        <td>Email</td>
         <td>{eMail}</td>
     </tr>
-    <!--
     <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Completed At:</td>
-        <td>{modified_at}</td>
+        <td>Exam Name</td>
+        <td>Okta Certified Professional Hands-On Configuration Exam</td>
     </tr>
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Duration:</td>
-        <td>{duration}</td>
+        <td><strong>Exam Outcome</strong></td>
+        <td>{passed}<br>
+            You will receive an email notification of your official exam outcome within 72 business hours after your exam goes through our standard audit process.
+        </td>
     </tr>
--->
 </table>
 <br>
 <table style="border-collapse: collapse;{hideShow}">
     <col width="600px" />
     <col width="600px" />
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td><strong>Breakdown</strong></td>
+        <td><strong>Exam Results by Section</strong></td>
         <td></td>
     </tr>
     <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Onboarding:</td>
-        <td>{uc1Percent}</td>
+        <td>&nbsp;&nbsp;Part I</td>
+        <td>&nbsp;&nbsp;</td>
     </tr>
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Application Setup:</td>
-        <td>{uc2Percent}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Identity and Access Management</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{iamPct}</td>
     </tr>
     <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Security Enforcement:</td>
-        <td>{uc3Percent}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;User Lifecycle Management</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{lcmPct}</td>
     </tr>
     <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
-        <td>Attribute Mapping and Offboarding:</td>
-        <td>{uc4Percent}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Security</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{secPct}</td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Administration and Troubleshooting</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{adminPct}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;Part II</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Use Case 1: Onboarding</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{uc1Percent}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Use Case 2: Application Setup</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{uc2Percent}</td>
+    </tr>
+    <tr style="background-color: #ffffff; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Use Case 3: Security Enforcement</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{uc3Percent}</td>
+    </tr>
+    <tr style="background-color: #f2f2f2; line-height: 32px; height: 32px; font-size: 14px;">
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Use Case 4: Attribute Mapping and Offboarding</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;{uc4Percent}</td>
     </tr>
 </table>
 </body>
