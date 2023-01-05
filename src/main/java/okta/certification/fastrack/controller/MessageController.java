@@ -31,7 +31,7 @@ public class MessageController {
     private static String CSS_STYLE = "<style>a{background-color:#4267B3;color:#fff;padding:.5em .5em;}body{font-family:sans-serif;line-height: 1.5;}</style>";
 
     private Connection ConnectDb() throws Exception {
-        Connection conn = null;
+        Connection conn;
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
@@ -93,12 +93,10 @@ public class MessageController {
         return retMap;
     }
 
-    private int UpdateTable(int id, String[] value) throws Exception {
-        String SQL = "UPDATE public.hands_on_pro_exam "
+    private void UpdateTable(int id, String[] value) {
+        String SQL = "UPDATE hands_on_pro_exam "
                 + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, examinee_info= ?, ext_token= ?, response_id= ?, date_used= now() "
                 + "WHERE table_id = ?";
-
-        int affectedRows = 0;
 
         try (Connection conn = this.ConnectDb();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -110,12 +108,11 @@ public class MessageController {
             pstmt.setString(5, value[4]);
             pstmt.setString(6, value[5]);
             pstmt.setInt(7, id);
-            affectedRows = pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            throw new Exception(ex.getMessage());
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
-        return affectedRows;
     }
 
     public static String LoadPage(String classpath) {
@@ -213,12 +210,15 @@ public class MessageController {
                     break;
             }
         });
-        String passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE delivery_id = '" + deliveryId[0] + "'";
-        Map<String, String> resMap = AssignOrg(passStr);
+        String selectStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM hands_on_pro_exam ";
+        String whereStr = "WHERE delivery_id = '" + deliveryId[0] + "'";
+
+        Map<String, String> resMap = AssignOrg(selectStr + whereStr);
         String foundId = resMap.get("table_id");
         if (foundId.equals("")){
-            passStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM public.hands_on_pro_exam WHERE date_used is null ORDER BY date_created LIMIT 1";
-            resMap = AssignOrg(passStr);
+            selectStr = "SELECT table_id, org1_url, org2_url, org2_apikey FROM hands_on_pro_exam ";
+            whereStr = "WHERE date_created > NOW() - INTERVAL '29 days' AND date_used is null ORDER BY date_created LIMIT 1";
+            resMap = AssignOrg(selectStr + whereStr);
             foundId = resMap.get("table_id");
             int tempInt = Integer.parseInt(foundId);
             String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], examineeInfo[0], externalToken[0], responseId[0]};

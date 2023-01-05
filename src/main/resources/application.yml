@@ -1,5 +1,5 @@
 base:
-  url: https://1155-136-52-65-147.ngrok.io/api/v1
+  url: https://7a2e-136-52-65-147.ngrok.io/api/v1
 webhook:
   url: https://okta-certification.ngrok.io/v2/sei/webhook
 sei:

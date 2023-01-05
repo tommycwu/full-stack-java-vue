@@ -29,8 +29,6 @@ public class PrelimController {
     private String USERNAME;
     @Value("#{ @environment['datasource.password'] }")
     private String PASSWORD;
-    @Value("#{ @environment['base.url'] }")
-    private String BASE_URL;
     @Value("#{ @environment['auth.header'] }")
     private String AUTH_HEADER;
 
@@ -48,8 +46,7 @@ public class PrelimController {
         }
     }
 
-    private Map<String,String> GetPerf(String sqlStr) throws Exception {
-        String SQL = sqlStr;
+    private Map<String,String> GetPbt(String sqlStr) throws Exception {
         String delivery_id = "";
         String exam_id = "";
         int item1_score	= 0;
@@ -89,7 +86,7 @@ public class PrelimController {
         try
         {
             conn = this.ConnectDb();
-            pstmt = conn.prepareStatement(SQL);
+            pstmt = conn.prepareStatement(sqlStr);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 item1_score	= rs.getInt("item1_score");
@@ -205,7 +202,7 @@ public class PrelimController {
                 "item30_score, item31_score ";
         String fromStr = "FROM hands_on_pro_exam ";
         String whereStr = "WHERE delivery_id = '" + deliveryId + "'";
-        Map<String, String> scoreMap = GetPerf(selectStr + fromStr + whereStr);
+        Map<String, String> scoreMap = GetPbt(selectStr + fromStr + whereStr);
 
         String uc1Percent = scoreMap.get("uc1Percent");
         String uc2Percent = scoreMap.get("uc2Percent");
@@ -245,6 +242,7 @@ public class PrelimController {
                 finalResult = "Provisional Fail ";
             }
         }
+
         String modified_at = resMap.get("modified_at") + "";
         String modified_split = modified_at.split("\\.")[0];
         String modified_formatted = modified_split.replace("T", " ");
@@ -279,7 +277,6 @@ public class PrelimController {
         {
             sSecLeft = String.valueOf(iSecLeft);
         }
-
         String durationStr = sHour + ":" + sMin + ":" + sSecLeft;
 
         String templateStr = LoadPage("classpath:prelim.html");
