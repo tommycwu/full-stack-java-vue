@@ -11,7 +11,7 @@
     <groupId>okta.certification.fastrack</groupId>
     <artifactId>fsjava</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>full-stack-java-vue</name>
+    <name>pro-cert-site</name>
     <description>Spring Boot + Vue Starter Template</description>
 
     <properties>
