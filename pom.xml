@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>okta.certification.fastrack</groupId>
-    <artifactId>fsjava</artifactId>
+    <artifactId>pro-cert-site</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pro-cert-site</name>
     <description>Spring Boot + Vue Starter Template</description>

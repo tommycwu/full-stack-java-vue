@@ -95,7 +95,7 @@ public class MessageController {
 
     private void UpdateTable(int id, String[] value) {
         String SQL = "UPDATE hands_on_pro_exam "
-                + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, examinee_info= ?, ext_token= ?, response_id= ?, date_used= now() "
+                + "SET delivery_id= ?, exam_id= ?, examinee_id= ?, ext_token= ?, response_id= ?, date_used= now() "
                 + "WHERE table_id = ?";
 
         try (Connection conn = this.ConnectDb();
@@ -106,8 +106,7 @@ public class MessageController {
             pstmt.setString(3, value[2]);
             pstmt.setString(4, value[3]);
             pstmt.setString(5, value[4]);
-            pstmt.setString(6, value[5]);
-            pstmt.setInt(7, id);
+            pstmt.setInt(6, id);
             pstmt.executeUpdate();
 
         } catch (Exception ex) {
@@ -184,7 +183,6 @@ public class MessageController {
         final String[] deliveryId = {""};
         final String[] examId = {""};
         final String[] examineeId = {""};
-        final String[] examineeInfo = {""};
         final String[] externalToken = {""};
         final String[] responseId = {""};
 
@@ -198,9 +196,6 @@ public class MessageController {
                     break;
                 case "x-sei-examinee-id" :
                     examineeId[0] = value;
-                    break;
-                case "x-sei-examinee-info" :
-                    examineeInfo[0] = value;
                     break;
                 case "x-sei-external-token" :
                     externalToken[0] = value;
@@ -221,17 +216,16 @@ public class MessageController {
             resMap = AssignOrg(selectStr + whereStr);
             foundId = resMap.get("table_id");
             int tempInt = Integer.parseInt(foundId);
-            String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], examineeInfo[0], externalToken[0], responseId[0]};
+            String[] seiInfo = {deliveryId[0], examId[0], examineeId[0], externalToken[0], responseId[0]};
             UpdateTable(tempInt, seiInfo);
         }
         String encP0 = "";
         String encP1 = "";
         String encP2 = "";
         String encP3 = "";
-        String jsonStr = examineeInfo[0];
         try {
-            JSONObject jsonObject = new JSONObject(jsonStr);
-            String s = jsonObject.get("First Name").toString();
+            //String s = jsonObject.get("First Name").toString();
+            String s = "Examinee";
             encP0 = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
             encP1 = URLEncoder.encode(resMap.get("org1_url"), StandardCharsets.UTF_8.toString());
             encP2 = URLEncoder.encode(resMap.get("org2_url"), StandardCharsets.UTF_8.toString());
